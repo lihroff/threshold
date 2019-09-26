@@ -1,16 +1,18 @@
 {
-  "name": "@mozleo/node-starter",
+  "name": "threshold",
   "version": "1.0.0",
-  "description": "Personal boilerplate to kickstart creating a Node.js module/repo",
+  "description": "Limit function call time.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tommy-White/node-starter.git"
+    "url": "git+https://github.com/lihroff/threshold.git"
   },
   "scripts": {
     "test": "jest",
     "lint": "eslint --cache --fix --ext .js src *test*"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash.curry": "^4.1.1"
+  },
   "devDependencies": {
     "husky": "^3.0.4",
     "jest": "^24.9.0",
@@ -18,14 +20,11 @@
     "prettier": "^1.18.2"
   },
   "keywords": [
-    "template",
-    "starter"
+    "once",
+    "prevent",
+    "calltimes",
+    "threshold"
   ],
-  "author": {
-    "name": "Tommy Lee",
-    "email": "lihroff@icloud.com",
-    "url": "https://fancylee.xyz"
-  },
   "license": "MIT",
   "engines": {
     "node": ">=8"
@@ -41,8 +40,5 @@
       "prettier --write",
       "git add"
     ]
-  },
-  "bugs": {
-    "url": "https://github.com/lihroff/node-starter/issues"
   }
 }

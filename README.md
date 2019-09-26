@@ -1,17 +1,25 @@
-# node-starter
-> Personal boilerplate to kickstart creating a Node.js module/repo.
+# threshold
+
+> Limit function call time.
 
 ## usage
-In your work directory, run:
 
-```bash
-> curl -fsSL https://github.com/Tommy-White/node-starter/archive/master.tar.gz | tar -xz --strip-components=1
+```javascript
+import threshold, { once } from 'threshold-invoke';
+
+let count = 0;
+const fn = () => ++count;
+
+const config = {
+  times: 1,
+  overflow: true, // throw err when rich the threshold.
+  // within: Date.now  // "1d 2m 3s 4M 5y 6(millisecond)"
+};
+
+threshold(config, fn)();
+threshold(config)(fn)();
+
+once(fn);
+// once(fn, opt)
+// threshold(undefined, fn)
 ```
-
-You can also `git clone` or [download](https://github.com/Tommy-White/node-starter/archive/master.zip) this repo and get contents of the `boilerplate` folder.
-
-## Include
-  - ESLint
-  - Jest for Test
-  - Code formatting
-  - ...

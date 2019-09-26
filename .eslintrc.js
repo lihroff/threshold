@@ -6,6 +6,9 @@ module.exports = {
     node: true,
     jest: true,
   },
+  parserOptions: {
+    ecmaVersion: 2018,
+  },
   globals: {
     NODE_ENV: 'readonly',
   },

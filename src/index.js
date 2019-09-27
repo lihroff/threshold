@@ -1,25 +1,37 @@
 'use strict';
 const curry = require('lodash.curry');
 const wm = require('./weakmap');
+const { getTimeStamp } = require('./date');
 
 const _threshold = (option, fn) => {
-  if (!option) {
-    option = {};
-  }
+  option = option || {};
 
   if (typeof fn !== 'function') {
     throw new TypeError('Expected a function');
   }
 
-  const { times = 1, overflow } = option;
+  const { times = 1, overflow, within } = option;
 
   let ret;
+  let start;
+  const stamp = getTimeStamp(within);
+
   const fnName = fn.displayName || fn.name || '<anonymous>';
 
   const tFn = (...args) => {
-    const count = wm.invoke(tFn);
+    if (stamp) {
+      const current = new Date().getTime();
+      if (wm.get(tFn) === 0) {
+        start = new Date().getTime();
+      }
+      if (current > start + stamp) {
+        start = new Date().getTime();
+        wm.register(tFn);
+      }
+    }
+    let prev = wm.get(tFn);
 
-    if (count > times) {
+    if (prev >= times) {
       if (overflow) {
         throw new Error(`Function \`${fnName}\` has reached the max invoke (${times}) times.`);
       }
@@ -29,7 +41,8 @@ const _threshold = (option, fn) => {
 
     ret = fn.apply(this, args);
 
-    if (count === times) {
+    const count = wm.invoke(tFn);
+    if (count === times && !within) {
       fn = null;
     }
 

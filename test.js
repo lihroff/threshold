@@ -43,3 +43,25 @@ test('threshold throw an error', () => {
   expect(fn()).toEqual(2);
   expect(() => fn()).toThrowError(/Function `.*` has reached the max invoke (.*) times./);
 });
+
+test('threshold within 1minute and 3sceond make it recount', async () => {
+  let i = 0;
+  const add = () => ++i;
+
+  const fn = threshold({ times: 2, within: '1m3s' })(add);
+
+  expect(fn()).toEqual(1);
+  expect(fn()).toEqual(2);
+  expect(fn()).toEqual(2);
+  expect(fn()).toEqual(2);
+
+  jest.setTimeout(600000);
+  const data = await new Promise(resovle => {
+    setTimeout(() => resovle(), 63000);
+  }).then(fn);
+
+  expect(data).toEqual(3);
+  expect(fn()).toEqual(4);
+  expect(fn()).toEqual(4);
+  expect(fn()).toEqual(4);
+});

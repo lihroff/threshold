@@ -44,7 +44,7 @@ test('threshold throw an error', () => {
   expect(() => fn()).toThrowError(/Function `.*` has reached the max invoke (.*) times./);
 });
 
-test('threshold within 1minute and 3sceond make it recount', async () => {
+test('threshold within 1minute and 3sceonds make it recount', async () => {
   let i = 0;
   const add = () => ++i;
 

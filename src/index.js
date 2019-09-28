@@ -13,22 +13,22 @@ const _threshold = (option, fn) => {
   const { times = 1, overflow, within } = option;
 
   let ret;
-  let start;
-  const stamp = getTimeStamp(within);
-
+  let start = 0;
+  const rangeTime = getTimeStamp(within);
   const fnName = fn.displayName || fn.name || '<anonymous>';
 
   const tFn = (...args) => {
-    if (stamp) {
+    if (within) {
       const current = new Date().getTime();
       if (wm.get(tFn) === 0) {
-        start = new Date().getTime();
+        start = current;
       }
-      if (current > start + stamp) {
-        start = new Date().getTime();
+      if (current > start + rangeTime) {
+        start = current;
         wm.register(tFn);
       }
     }
+
     let prev = wm.get(tFn);
 
     if (prev >= times) {

@@ -7,6 +7,10 @@
     "url": "git+https://github.com/lihroff/threshold.git"
   },
   "main": "src/index",
+  "files": [
+    "src/index",
+    "index.d.ts"
+  ],
   "scripts": {
     "test": "jest",
     "lint": "eslint --cache --fix --ext .js src *test*"

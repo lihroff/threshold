@@ -5,21 +5,29 @@
 ## usage
 
 ```javascript
-import threshold, { once } from 'threshold-invoke';
+import { once, threshold } from 'threshold-invoke';
 
 let count = 0;
-const fn = () => ++count;
-
+const fn = (i) => console.log(`The ${i} times invoke return: ${++i}`);
 const config = {
-  times: 1,
-  overflow: true, // throw err when rich the threshold.
-  // within: Date.now  // "1d 2m 3s 4M 5y 6(millisecond)"
+  times: 2,
+  // overflow: true, // throw err when reaching the threshold
+  // within: '1m30s', 90000, '1d1h1m1s'. You can use
+  // You can use `within` option to set a time period from which the count will be reset from the first call to the time period.
 };
+const bar = threshold(config, fn)
+// const bar = threshold(config)(fn)
+bar();  // -> The 1 times invoke return: 1
+bar();  // -> The 2 times invoke return: 2
+bar();  // -> The 3 times invoke return: 2
 
-threshold(config, fn)();
-threshold(config)(fn)();
+count = 0
+const onceOpt = {
+  overflow: true,
+  // within: '1m30s', 90000, '1d1h1m1s'
+}
 
-once(fn);
-// once(fn, opt)
-// threshold(undefined, fn)
+const baz = once(fn, onceOpt?);
+baz();  // -> The 1 times invoke return: 1
+baz();  // -> throw err
 ```

@@ -18,7 +18,7 @@ declare namespace threshold {
     within?: number | string;
   }
 
-  type onceOptions = Exclude<keyof threshold.Options, 'time'>;
+  type onceOptions = Pick<threshold.Options, Exclude<keyof threshold.Options, 'time'>>;
 }
 
 declare const threshold: {
@@ -34,5 +34,3 @@ declare const threshold: {
 };
 
 export = threshold;
-
-export default threshold.threshold;

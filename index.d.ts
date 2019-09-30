@@ -21,11 +21,17 @@ declare namespace threshold {
   type onceOptions = Pick<threshold.Options, Exclude<keyof threshold.Options, 'time'>>;
 }
 
+declare function _threshold<ArgumentsType extends unknown[], ReturnType>(
+  options: threshold.Options,
+  fn: (...arguments: ArgumentsType) => ReturnType,
+): (...arguments: ArgumentsType) => ReturnType;
+
+declare function _threshold<ArgumentsType extends unknown[], ReturnType>(
+  options: threshold.Options,
+): (fn: (...arguments: ArgumentsType) => ReturnType) => (...arguments: ArgumentsType) => ReturnType;
+
 declare const threshold: {
-  threshold: <ArgumentsType extends unknown[], ReturnType>(
-    options: threshold.Options,
-    fn: (...arguments: ArgumentsType) => ReturnType,
-  ) => (...arguments: ArgumentsType) => ReturnType;
+  threshold: typeof _threshold;
 
   once: <ArgumentsType extends unknown[], ReturnType>(
     fn: (...arguments: ArgumentsType) => ReturnType,

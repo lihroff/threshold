@@ -4,7 +4,7 @@ declare namespace threshold {
 		  Maximum number of calls.
 		  @default 1
 		*/
-    time?: number;
+    times?: number;
     /**
 		  Throw an error when called more than once.
 		  @default false

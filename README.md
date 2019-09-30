@@ -8,7 +8,7 @@
 import { once, threshold } from 'threshold-invoke';
 
 let count = 0;
-const fn = (i) => console.log(`The ${i} times invoke return: ${++i}`);
+const fn = (i) => console.log(`The ${i} times invoke return: ${++count}`);
 const config = {
   times: 2,
   // overflow: true, // throw err when reaching the threshold

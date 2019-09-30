@@ -22,17 +22,17 @@ declare namespace threshold {
 }
 
 declare const threshold: {
-  threshold: <ArgumentsType extends any[], ReturnType>(
-    options?: threshold.Options,
+  threshold: <ArgumentsType extends unknown[], ReturnType>(
+    options: threshold.Options,
     fn: (...arguments: ArgumentsType) => ReturnType,
   ) => (...arguments: ArgumentsType) => ReturnType;
 
-  once: <ArgumentsType extends any[], ReturnType>(
+  once: <ArgumentsType extends unknown[], ReturnType>(
     fn: (...arguments: ArgumentsType) => ReturnType,
     options?: threshold.onceOptions,
   ) => (...arguments: ArgumentsType) => ReturnType;
-
-  default: typeof threshold;
 };
 
 export = threshold;
+
+export default threshold.threshold;

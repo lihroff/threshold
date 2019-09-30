@@ -1,6 +1,6 @@
 {
   "name": "threshold-invoke",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Limit function call time.",
   "repository": {
     "type": "git",

@@ -1,12 +1,13 @@
 {
   "name": "threshold-invoke",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Limit function call time.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lihroff/threshold.git"
   },
   "main": "src/index",
+  "types": "index.d.ts",
   "files": [
     "src",
     "index.d.ts"

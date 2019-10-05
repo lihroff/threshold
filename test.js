@@ -1,5 +1,5 @@
 const threshold = require('./src').default;
-const { once } = require('./src');
+const { once, callInfo } = require('./src');
 
 test('once', () => {
   let i = 0;
@@ -20,6 +20,7 @@ test('once with arguments', () => {
   expect(fn(3)).toEqual(3);
   expect(fn(2)).toEqual(3);
   expect(fn(1)).toEqual(3);
+  expect(callInfo(fn).times).toEqual(3);
 });
 
 test('threshold to 2', () => {
@@ -29,15 +30,18 @@ test('threshold to 2', () => {
   const fn = threshold({ times: 2 })(add);
 
   expect(fn()).toEqual(1);
+  expect(callInfo(fn).callable).toEqual(true);
   expect(fn()).toEqual(2);
+  expect(callInfo(fn).callable).toEqual(false);
   expect(fn()).toEqual(2);
+  expect(callInfo(fn).times).toEqual(3);
 });
 
 test('threshold throw an error', () => {
   let i = 0;
   const add = () => ++i;
 
-  const fn = threshold({ times: 2, overflow: true })(add);
+  const fn = threshold({ times: 2, throw: true })(add);
 
   expect(fn()).toEqual(1);
   expect(fn()).toEqual(2);
@@ -64,4 +68,18 @@ test('threshold within 1minute and 3sceonds make it recount', async () => {
   expect(fn()).toEqual(4);
   expect(fn()).toEqual(4);
   expect(fn()).toEqual(4);
+});
+
+test('callInfo test', () => {
+  const dummy = () => {};
+
+  const fn = threshold({ times: 2 })(dummy);
+
+  expect(callInfo(fn)).toEqual({ times: 0, callable: true });
+  fn();
+  expect(callInfo(fn)).toEqual({ times: 1, callable: true });
+  fn();
+  expect(callInfo(fn)).toEqual({ times: 2, callable: false });
+  fn();
+  expect(callInfo(fn)).toEqual({ times: 3, callable: false });
 });

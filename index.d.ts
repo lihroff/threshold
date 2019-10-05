@@ -9,7 +9,7 @@ declare namespace threshold {
 		  Throw an error when called more than once.
 		  @default false
 		*/
-    overflow?: boolean;
+    throw?: boolean;
     /**
       Time period.
       string -> '1[d/h/m/s]' | '2m30s'
@@ -18,7 +18,12 @@ declare namespace threshold {
     within?: number | string;
   }
 
-  type onceOptions = Pick<threshold.Options, Exclude<keyof threshold.Options, 'time'>>;
+  type onceOptions = Pick<threshold.Options, Exclude<keyof threshold.Options, 'times'>>;
+
+  interface CallInfo {
+    times: number;
+    callable: boolean;
+  }
 }
 
 declare function _threshold<ArgumentsType extends unknown[], ReturnType>(
@@ -30,13 +35,9 @@ declare function _threshold<ArgumentsType extends unknown[], ReturnType>(
   options: threshold.Options,
 ): (fn: (...arguments: ArgumentsType) => ReturnType) => (...arguments: ArgumentsType) => ReturnType;
 
-declare const threshold: {
-  threshold: typeof _threshold;
-
-  once: <ArgumentsType extends unknown[], ReturnType>(
-    fn: (...arguments: ArgumentsType) => ReturnType,
-    options?: threshold.onceOptions,
-  ) => (...arguments: ArgumentsType) => ReturnType;
-};
-
-export = threshold;
+export const threshold: typeof _threshold;
+export function once<ArgumentsType extends unknown[], ReturnType>(
+  fn: (...arguments: ArgumentsType) => ReturnType,
+  options?: threshold.onceOptions,
+): (...arguments: ArgumentsType) => ReturnType;
+export function callInfo(fn: (...arguments: unknown[]) => unknown): threshold.CallInfo;

@@ -15,9 +15,9 @@ const getTimeStamp = (input = 0) => {
     const num = next.slice(0, -1);
     switch (tail(next)) {
       case 'd':
-        return pre + num * SECONDS_A_DAY * SECONDS_A_HOUR * SECONDS_A_MINUTE * 1000;
+        return pre + num * SECONDS_A_DAY * 1000;
       case 'h':
-        return pre + num * SECONDS_A_HOUR * SECONDS_A_MINUTE * 1000;
+        return pre + num * SECONDS_A_HOUR * 1000;
       case 'm':
         return pre + num * SECONDS_A_MINUTE * 1000;
       case 's':

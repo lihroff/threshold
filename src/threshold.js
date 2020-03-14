@@ -49,7 +49,7 @@ const _threshold = (option, fn) => {
 
   tFn._times = times;
 
-  return tFn;
+  return Object.freeze(tFn);
 };
 
 _threshold.callInfo = fn => {
@@ -58,6 +58,14 @@ _threshold.callInfo = fn => {
     times,
     callable: times < fn._times,
   };
+};
+
+_threshold.resume = fn => {
+  const exist = wm.has(fn);
+  if (exist) {
+    wm.register(fn);
+  }
+  return exist;
 };
 
 module.exports = _threshold;

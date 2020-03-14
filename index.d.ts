@@ -41,3 +41,4 @@ export function once<ArgumentsType extends unknown[], ReturnType>(
   options?: threshold.onceOptions,
 ): (...arguments: ArgumentsType) => ReturnType;
 export function callInfo(fn: (...arguments: unknown[]) => unknown): threshold.CallInfo;
+export function resume(fn: (...arguments: unknown[]) => unknown): boolean;

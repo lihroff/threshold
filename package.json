@@ -1,6 +1,6 @@
 {
   "name": "threshold-invoke",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "description": "Limit function call time.",
   "repository": {
     "type": "git",
@@ -26,10 +26,11 @@
     "prettier": "^1.18.2"
   },
   "keywords": [
-    "once",
+    "onetime",
     "prevent",
     "calltimes",
-    "threshold"
+    "threshold",
+    "resume"
   ],
   "license": "MIT",
   "engines": {

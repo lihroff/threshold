@@ -12,11 +12,13 @@ const invoke = fn => {
 };
 
 const get = fn => {
-  if (!weakmap.has(fn)) {
+  if (!has(fn)) {
     throw new Error(`The function \`${fn.name}\` has not been registered yet.`);
   }
 
   return weakmap.get(fn);
 };
 
-module.exports = { register, invoke, get };
+const has = fn => weakmap.has(fn);
+
+module.exports = { register, invoke, get, has };
